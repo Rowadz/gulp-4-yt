@@ -1,3 +1,3 @@
 # gulp-4-yt
 
-<img src="Gulpjs.png" />
+<img src="thumb.png" />
