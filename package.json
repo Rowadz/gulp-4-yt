@@ -1,0 +1,20 @@
+{
+  "name": "gulp-4-yt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohammedAl-Rowad/gulp-4-yt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MohammedAl-Rowad/gulp-4-yt/issues"
+  },
+  "homepage": "https://github.com/MohammedAl-Rowad/gulp-4-yt#readme"
+}
