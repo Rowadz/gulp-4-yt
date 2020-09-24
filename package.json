@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MohammedAl-Rowad/gulp-4-yt#readme",
   "devDependencies": {
+    "browser-sync": "^2.26.12",
     "colors": "^1.4.0",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
