@@ -44,11 +44,11 @@ const dev = () => {
 
 const watchJsAndSCSS = (cb) => {
   watch(
-    join(path, 'js', '**/*.js'),
+    sync(join(path, 'js', '**/*.js')),
     series(compileJS, minifyJS, realoadBrowser)
   )
   watch(
-    join(path, 'scss', '**/*.scss'),
+    sync(join(path, 'scss', '**/*.scss')),
     series(compileSCSS, minifyCSS, realoadBrowser)
   )
   cb()
