@@ -9,18 +9,17 @@ require('colors')
 sass.compiler = require('node-sass')
 const path = join(__dirname, 'src')
 
-const compileSCSS = () => {
-  return src(sync(join(path, 'scss', '**/*.scss')))
+const compileSCSS = () =>
+  src(sync(join(path, 'scss', '**/*.scss')))
     .pipe(sass().on('error', sass.logError))
     .pipe(dest(join(path, 'dist')))
-}
 
 const compileJS = (cb) => {
   cb()
 }
 
-const minifyCSS = () => {
-  return src(sync(join(path, 'dist', '**/!(*.min).css')))
+const minifyCSS = () =>
+  src(sync(join(path, 'dist', '**/!(*.min).css')))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
     .pipe(
       rename(({ dirname, basename }) => ({
@@ -30,7 +29,6 @@ const minifyCSS = () => {
       }))
     )
     .pipe(dest(join(path, 'dist')))
-}
 
 const minifyJS = (cb) => {
   cb()
