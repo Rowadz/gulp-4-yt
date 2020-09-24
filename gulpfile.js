@@ -1,7 +1,7 @@
 const { series, parallel, src, dest, watch } = require('gulp')
 const { sync } = require('glob')
 const sass = require('gulp-sass')
-const { join } = require('path')
+const { join, basename } = require('path')
 const cleanCSS = require('gulp-clean-css')
 const rename = require('gulp-rename')
 const browserSync = require('browser-sync').create()
@@ -43,14 +43,13 @@ const dev = () => {
 }
 
 const watchJsAndSCSS = (cb) => {
-  watch(
-    sync(join(path, 'js', '**/*.js')),
-    series(compileJS, minifyJS, realoadBrowser)
-  )
-  watch(
-    sync(join(path, 'scss', '**/*.scss')),
-    series(compileSCSS, minifyCSS, realoadBrowser)
-  )
+  const jsFiles = sync(join(path, 'js', '**/*.js'))
+  console.table(jsFiles.map((path) => basename(path)))
+  watch(jsFiles, series(compileJS, minifyJS, realoadBrowser))
+  const scssFiles = sync(join(path, 'scss', '**/*.scss'))
+  console.log(`👁️ ${'SCSS'.magenta} files we will watch... 👁️`.bold)
+  console.table(scssFiles.map((path) => basename(path)))
+  watch(scssFiles, series(compileSCSS, minifyCSS, realoadBrowser))
   cb()
 }
 
