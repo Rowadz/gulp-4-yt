@@ -1,4 +1,4 @@
-const { series, parallel, src, dest } = require('gulp')
+const { series, parallel, src, dest, watch } = require('gulp')
 const { sync } = require('glob')
 const sass = require('gulp-sass')
 const { join } = require('path')
@@ -42,8 +42,26 @@ const dev = () => {
   })
 }
 
+const watchJsAndSCSS = (cb) => {
+  watch(
+    join(path, 'js', '**/*.js'),
+    series(compileJS, minifyJS, realoadBrowser)
+  )
+  watch(
+    join(path, 'scss', '**/*.scss'),
+    series(compileSCSS, minifyCSS, realoadBrowser)
+  )
+  cb()
+}
+
+const realoadBrowser = (cb) => {
+  browserSync.reload()
+  cb()
+}
+
 exports.default = series(
   parallel(compileJS, compileSCSS),
   parallel(minifyCSS, minifyJS),
+  watchJsAndSCSS,
   dev
 )
