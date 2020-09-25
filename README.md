@@ -1,7 +1,10 @@
 # gulp-4-yt
 
 Gulpjs series where I go over the basic 
+
+
 content:
+
 - intro 
 - gulp tasks ( series & parallel )
 - compiling SCSS
