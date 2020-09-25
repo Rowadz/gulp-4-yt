@@ -7,22 +7,27 @@ const rename = require('gulp-rename')
 const browserSync = require('browser-sync').create()
 const babel = require('gulp-babel')
 const uglify = require('gulp-uglify')
+const sourcemaps = require('gulp-sourcemaps')
 require('colors')
 sass.compiler = require('node-sass')
 const path = join(__dirname, 'src')
 
 const compileSCSS = () =>
   src(sync(join(path, 'scss', '**/*.scss')))
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write('.'))
     .pipe(dest(join(path, 'dist')))
 
 const compileJS = () =>
   src(sync(join(path, 'js', '**/*.js')))
+    .pipe(sourcemaps.init())
     .pipe(
       babel({
         presets: ['@babel/env'],
       })
     )
+    .pipe(sourcemaps.write('.'))
     .pipe(dest(join(path, 'dist')))
 
 const minifyCSS = () =>
