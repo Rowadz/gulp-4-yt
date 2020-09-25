@@ -1,0 +1,8 @@
+README.md
+dump.txt
+gulpfile.js
+node_modules
+package-lock.json
+package.json
+src
+thumb.png

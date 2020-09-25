@@ -8,9 +8,12 @@ const browserSync = require('browser-sync').create()
 const babel = require('gulp-babel')
 const uglify = require('gulp-uglify')
 const sourcemaps = require('gulp-sourcemaps')
+const { exec } = require('child_process')
+const { promisify } = require('util')
 require('colors')
 sass.compiler = require('node-sass')
 const path = join(__dirname, 'src')
+const execAsync = promisify(exec)
 
 const compileSCSS = () =>
   src(sync(join(path, 'scss', '**/*.scss')))
@@ -72,9 +75,12 @@ const realoadBrowser = (cb) => {
   cb()
 }
 
+const execShellStuff = async () => await execAsync('ls > dump.txt')
+
 exports.default = series(
   parallel(compileJS, compileSCSS),
   parallel(minifyCSS, minifyJS),
   watchJsAndSCSS,
+  execShellStuff,
   dev
 )
