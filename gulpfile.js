@@ -35,7 +35,9 @@ const compileJS = () =>
 
 const minifyCSS = () =>
   src(sync(join(path, 'dist', '**/!(*.min).css')))
+    .pipe(sourcemaps.init())
     .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(sourcemaps.write('.'))
     .pipe(
       rename(({ dirname, basename }) => ({
         dirname,
@@ -48,6 +50,8 @@ const minifyCSS = () =>
 const minifyJS = () =>
   src(sync(join(path, 'dist', '**/*.js')))
     .pipe(uglify())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
     .pipe(dest(join(path, 'dist')))
 
 const dev = () => {
