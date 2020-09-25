@@ -5,6 +5,8 @@ const { join, basename } = require('path')
 const cleanCSS = require('gulp-clean-css')
 const rename = require('gulp-rename')
 const browserSync = require('browser-sync').create()
+const babel = require('gulp-babel')
+const uglify = require('gulp-uglify')
 require('colors')
 sass.compiler = require('node-sass')
 const path = join(__dirname, 'src')
@@ -14,9 +16,14 @@ const compileSCSS = () =>
     .pipe(sass().on('error', sass.logError))
     .pipe(dest(join(path, 'dist')))
 
-const compileJS = (cb) => {
-  cb()
-}
+const compileJS = () =>
+  src(sync(join(path, 'js', '**/*.js')))
+    .pipe(
+      babel({
+        presets: ['@babel/env'],
+      })
+    )
+    .pipe(dest(join(path, 'dist')))
 
 const minifyCSS = () =>
   src(sync(join(path, 'dist', '**/!(*.min).css')))
@@ -30,9 +37,10 @@ const minifyCSS = () =>
     )
     .pipe(dest(join(path, 'dist')))
 
-const minifyJS = (cb) => {
-  cb()
-}
+const minifyJS = () =>
+  src(sync(join(path, 'dist', '**/*.js')))
+    .pipe(uglify())
+    .pipe(dest(join(path, 'dist')))
 
 const dev = () => {
   browserSync.init({
@@ -44,6 +52,7 @@ const dev = () => {
 
 const watchJsAndSCSS = (cb) => {
   const jsFiles = sync(join(path, 'js', '**/*.js'))
+  console.log(`👁️ ${'JavaScript'.yellow} files we will watch... 👁️`.bold)
   console.table(jsFiles.map((path) => basename(path)))
   watch(jsFiles, series(compileJS, minifyJS, realoadBrowser))
   const scssFiles = sync(join(path, 'scss', '**/*.scss'))

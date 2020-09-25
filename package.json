@@ -18,13 +18,18 @@
   },
   "homepage": "https://github.com/MohammedAl-Rowad/gulp-4-yt#readme",
   "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.26.12",
     "colors": "^1.4.0",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
     "node-sass": "^4.14.1"
   }
 }
